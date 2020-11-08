@@ -7,25 +7,34 @@ using namespace std;
 
 enum charCard { ARMOUREDKNIGHT, RONIN, SPARTAN, JEDI };
 enum wepCard { ZWEIHANDER, KATANA, GLADIUS, LIGHTSABER };
-enum upgCard { plusH,plusA, plusHA, Hx2A_2};
+enum upgCard { plusH, plusA, plusHA, Hx2A_2 };
 
-string charName[4]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI" }, wepName[4]{ "a ZWIEHANDER","a KATANA","a GLADIUS","a LIGHT SABER" }, upgName[4]{"a +H","a +A","a +H+A","a H*2, A/2"};
+bool winner;
+bool youWin;
+bool oppWins;
+int upgPU;
+int oppUpgPU;
+int wepPU;
+int oppWepPU;
+int charPU;
+int oppCharPU;
+
+string charName[4]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI" }, wepName[4]{ "ZWIEHANDER","KATANA","GLADIUS","LIGHT SABER" }, upgName[4]{ "+H","+A","+H+A","H*2, A/2" };
 
 class Player {
 public:
-	int lifePoints = 1000;
+	int lifePoints;
 };
 
 class Oponenet {
 public:
-	int lifePoints = 1000;
+	int lifePoints;
 };
 
 class Character {
 public:
 	string name;
 	int strength, health;
-	
 };
 
 class Weapon {
@@ -41,7 +50,6 @@ public:
 	//minwield
 };
 
-int upgPU;
 int upgSel() {
 	//USE THIS SWITCH STATEMENT TO RETURN VALUE INTO THE WINLOSE FUNCTION THE CREATE ANOTHER SWITCH STATEMENT TO ADD UNIQUE FUNCTIONS FOR THE UPGRADE CARDS.
 	enum upgCard upgrade;
@@ -52,22 +60,24 @@ int upgSel() {
 	switch (upgPU) {
 	case plusH:
 		cout << "you picked up a " << upgName[upgPU] << endl;
+		//function
 		break;
 	case plusA:
 		cout << "you picked up a " << upgName[upgPU] << endl;
+		//function
 		break;
 	case plusHA:
 		cout << "you picked up a " << upgName[upgPU] << endl;
+		//function
 		break;
 	case Hx2A_2:
 		cout << "you picked up a " << upgName[upgPU] << endl;
+		//function
 		break;
 	}
-	
 	return upgPU;
 }
 
-int oppUpgPU;
 int oppUpgSel() {
 	//USE THIS SWITCH STATEMENT TO RETURN VALUE INTO THE WINLOSE FUNCTION THE CREATE ANOTHER SWITCH STATEMENT TO ADD UNIQUE FUNCTIONS FOR THE UPGRADE CARDS.
 	enum upgCard upgrade;
@@ -89,11 +99,9 @@ int oppUpgSel() {
 		cout << "you picked up a " << upgName[upgPU] << endl;
 		break;
 	}
-
 	return upgPU;
 }
 
-int wepPU;
 int wepSel() {
 	cout << "pick up a weapon card" << endl;
 	cin.get();
@@ -103,7 +111,6 @@ int wepSel() {
 	return wepPU;
 }
 
-int oppWepPU;
 int oppWepSel() {
 	cout << "your OPPONENT has picked up a weapon card" << endl;
 	cin.get();
@@ -113,7 +120,6 @@ int oppWepSel() {
 	return oppWepPU;
 }
 
-int charPU;
 int charSel() {
 	cout << "pick up a character card" << endl;
 	cin.get();
@@ -123,7 +129,6 @@ int charSel() {
 	return charPU;
 }
 
-int oppCharPU;
 int oppCharSel() {
 	cout << "your OPPONENT has picked up a character card" << endl;
 	cin.get();
@@ -132,11 +137,8 @@ int oppCharSel() {
 	cout << " your OPPONENT picked up " << charName[oppCharPU] << endl;
 	return oppCharPU;
 }
-bool winner;
-bool youWin;
-bool oppWins;
 
-void winLose() {
+bool winLose() {
 	srand(time(0));
 	Upgrade currUpg, oppCurrUpg;
 	currUpg.name = upgName[upgPU];
@@ -160,18 +162,14 @@ void winLose() {
 	currChar.strength = 3;
 	oppCurrChar.strength = 2;
 
-
 	charSel();
 	oppCharSel();
 	wepSel();
 	oppWepSel();
 
-
-
-
 	cout << "its " << charName[charPU] << " holding a " << wepName[wepPU] << " vs " << charName[oppCharPU] << " holding a " << wepName[oppWepPU] << endl;
-
 	cin.get();
+
 	do {
 		srand(time(0));
 		winner = false;
@@ -181,44 +179,47 @@ void winLose() {
 		cin >> move;
 
 		if (move == 'u') {
-			cout << "upgrade function" << endl;
-
-		}else if (move == 'a') {
+			cout << "you have chosen to pick up an upgrade" << endl;
+			upgSel();
+		}
+		else if (move == 'a') {
 			cout << "you attack " << charName[oppCharPU] << " with a " << wepName[wepPU] << endl;
-			cout << charName[oppCharPU] << "'s health is now at: " <<(oppCurrChar.health -=(currWep.attack*currChar.strength))<< endl;
+			cin.get();
+			cout << charName[oppCharPU] << "'s health is now at: " << (oppCurrChar.health -= (currWep.attack * currChar.strength)) << endl;
 			cin.get();
 			cout << "your " << wepName[wepPU] << " currently has " << (currWep.uses -= 1) << " uses remaining." << endl;
 			if (currWep.uses == 0) {
 				wepSel();
 			}
 		}
-
-
 		if (oppMove == 0) {
 			cout << "your opponent attacks " << charName[charPU] << endl;
-			cout << charName[charPU] << "'s health is now at: " << (currChar.health -= (oppCurrWep.attack*oppCurrChar.strength)) << endl;
 			cin.get();
-			cout<<"your opponents "<<wepName[oppWepPU]<< " currently has " <<(oppCurrWep.uses -= 1)<<endl;
+			cout << charName[charPU] << "'s health is now at: " << (currChar.health -= (oppCurrWep.attack * oppCurrChar.strength)) << endl;
+			cin.get();
+			cout << "your opponents " << wepName[oppWepPU] << " currently has " << (oppCurrWep.uses -= 1) << endl;
 			if (oppCurrWep.uses == 0) {
 				oppWepSel();
 			}
-			
-		}else if (oppMove == 1) {
+		}
+		else if (oppMove == 1) {
 			cout << "your OPPONENT chose to draw for an upgrade card" << endl;
+			oppUpgSel();
 			cin.get();
-
 		}
 		if (oppCurrChar.health <= 0) {
 			cin.get();
-			cout << charName[charPU] << "match winner" << endl;
+			cout << charName[charPU] << " match winner" << endl;
 			winner = true;
 			youWin = true;
+			return youWin;
 		}
 		else if (currChar.health <= 0) {
-			cout << charName[oppCharPU] << "match winner" << endl;
+			cout << charName[oppCharPU] << " match winner" << endl;
 			cin.get();
 			winner = true;
 			oppWins = true;
+			return oppWins;
 		}
 	} while (winner == false);
 	cout << "great match" << endl;
@@ -228,73 +229,72 @@ void winLose() {
 
 	currChar.health = { 10 };
 	oppCurrChar.health = { 10 };
-
 }
 
-void winLose();
+bool winLose();
 
 int main() {
 	char playAgain;
 	do {
-		for (;;) {
-			Player you;
-			you.lifePoints;// = 1000
+		Player you;
+		you.lifePoints = 1000;// = 1000
 
-			Oponenet opp;
-			opp.lifePoints;// = 1000
+		Oponenet opp;
+		opp.lifePoints = 1000;// = 1000
 
-			bool finalWin;
-			do {
-				finalWin = false;
-				for (int i = 250; i < 1000; --i) {
-					winLose();
-					if (youWin == true) {
-						cout << "your opponents life points is now at: " << (opp.lifePoints -= i) << endl;
-						cout << "your life points " << you.lifePoints << endl;
-						cin.get();
-						if (opp.lifePoints <= 0) {
-							return finalWin = true;
-							cin.get();
-						}
-					}
-					else if (oppWins == true) {
-						cout << "your life points are now at " << (you.lifePoints -= i) << endl;
-						cout << "opponents life points " << opp.lifePoints << endl;
-						cin.get();
-						if (you.lifePoints <= 0) {
-							return finalWin = true;
-							cin.get();
-						}
+		bool finalWin;
+		do {
+			finalWin = false;
+			for (int i = 250; i > 1000; i--) { //or (int i = 250; i>250; i--(or --i))
+				winLose();
+				if (youWin == true) {
+					cout << "your opponents life points is now at: " << (opp.lifePoints -= i) << endl;
+					cin.get();
+					cout << "your life points " << you.lifePoints << endl;
+					cin.get();
+					if (opp.lifePoints <= 0) {
+						finalWin = true;
+						return youWin;
 					}
 				}
-			} while (finalWin == false);
-			if (you.lifePoints <= 0) {
-				cout << "you were defeated" << endl;
-				cout << "" << endl;
-				cout << "wanna play again? type 'y' OR 'n'" << endl;
-				cin >> playAgain;
-				if (playAgain == 'n') {
-					return 'n';
-				}
-				else {
-					return 'y';
+				else if (oppWins == true) {
+					cout << "your life points are now at " << (you.lifePoints -= i) << endl;
+					cin.get();
+					cout << "opponents life points " << opp.lifePoints << endl;
+					cin.get();
+					if (you.lifePoints <= 0) {
+						finalWin = true;
+						return oppWins;
+					}
 				}
 			}
-			else if (opp.lifePoints <= 0) {
-				cout << "VICTORY!! YOU DEFEATED YOUR OPPONENT!!" << endl;
-				cout << "" << endl;
-				cout << "wanna play again? type 'y' OR 'n'" << endl;
-				cin >> playAgain;
-				if (playAgain == 'n') {
-					return 'n';
-				}
-				else {
-					return 'y';
-				}
+		} while (finalWin == false);
+		cin.get();
+		if (oppWins == true) {
+			cout << "YOU WERE DEFEATED" << endl;
+			cin.get();
+			cout << "wanna play again? type 'y' OR 'n'" << endl;
+			cin >> playAgain;
+			if (playAgain == 'n') {
+				return 'n';
+			}
+			else {
+				return 'y';
+			}
+		}
+		else if (youWin == true) {
+			cout << "VICTORY!! YOU DEFEATED YOUR OPPONENT!!" << endl;
+			cin.get();
+			cout << "wanna play again? type 'y' OR 'n'" << endl;
+			cin >> playAgain;
+			if (playAgain == 'n') {
+				return 0;
+			}
+			else {
+				playAgain = 'y';
+				return playAgain = 'y';
 			}
 		}
 	} while (playAgain == 'y');
-		cout << "THANK YOU FOR PLAYING" << endl;
-	cin.get();
 	return 0;
 }
