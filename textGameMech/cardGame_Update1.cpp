@@ -5,22 +5,6 @@
 
 using namespace std;
 
-enum charCard { ARMOUREDKNIGHT, RONIN, SPARTAN, JEDI };
-enum wepCard { ZWEIHANDER, KATANA, GLADIUS, LIGHTSABER };
-enum upgCard { plusH, plusA, plusHA, Hx2A_2 };
-
-bool winner;
-bool youWin;
-bool oppWins;
-int upgPU;
-int oppUpgPU;
-int wepPU;
-int oppWepPU;
-int charPU;
-int oppCharPU;
-
-string charName[4]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI" }, wepName[4]{ "ZWIEHANDER","KATANA","GLADIUS","LIGHT SABER" }, upgName[4]{ "+H","+A","+H+A","H*2, A/2" };
-
 class Player {
 public:
 	int lifePoints;
@@ -49,6 +33,22 @@ public:
 	int uses;
 	//minwield
 };
+
+enum charCard { ARMOUREDKNIGHT, RONIN, SPARTAN, JEDI };
+enum wepCard { ZWEIHANDER, KATANA, GLADIUS, LIGHTSABER };
+enum upgCard { plusH, plusA, plusHA, Hx2A_2 };
+
+bool winner;
+bool youWin;
+bool oppWins;
+int upgPU;
+int oppUpgPU;
+int wepPU;
+int oppWepPU;
+int charPU;
+int oppCharPU;
+
+string charName[4]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI" }, wepName[4]{ "ZWIEHANDER","KATANA","GLADIUS","LIGHT SABER" }, upgName[4]{ "+H","+A","+H+A","H*2, A/2" };
 
 int upgSel() {
 	//USE THIS SWITCH STATEMENT TO RETURN VALUE INTO THE WINLOSE FUNCTION THE CREATE ANOTHER SWITCH STATEMENT TO ADD UNIQUE FUNCTIONS FOR THE UPGRADE CARDS.
