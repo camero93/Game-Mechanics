@@ -7,30 +7,30 @@ using namespace std;
 
 class Player {
 public:
-	int lifePoints;
+	int lifePoints = 1000;
 };
 
 class Oponenet {
 public:
-	int lifePoints;
+	int lifePoints = 1000;
 };
 
 class Character {
 public:
 	string name;
-	int strength, health;
+	int strength{}, health{};
 };
 
 class Weapon {
 public:
 	string name;
-	int uses, attack, defense;//minStrength
+	int uses{}, attack{}, defense{};//minStrength
 };
 
 class Upgrade {
 public:
 	string name;
-	int uses;
+	int uses{};
 	//minwield
 };
 
@@ -52,7 +52,7 @@ string charName[4]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI" }, wepName[4]{ "Z
 
 int upgSel() {
 	//USE THIS SWITCH STATEMENT TO RETURN VALUE INTO THE WINLOSE FUNCTION THE CREATE ANOTHER SWITCH STATEMENT TO ADD UNIQUE FUNCTIONS FOR THE UPGRADE CARDS.
-	enum upgCard upgrade;
+	
 	cout << "pick up an upgrade card" << endl;
 	cin.get();
 	srand(time(0));
@@ -80,7 +80,7 @@ int upgSel() {
 
 int oppUpgSel() {
 	//USE THIS SWITCH STATEMENT TO RETURN VALUE INTO THE WINLOSE FUNCTION THE CREATE ANOTHER SWITCH STATEMENT TO ADD UNIQUE FUNCTIONS FOR THE UPGRADE CARDS.
-	enum upgCard upgrade;
+	
 	cout << "your OPPONENT picked up an upgrade card" << endl;
 	cin.get();
 	srand(time(0));
@@ -234,18 +234,18 @@ bool winLose() {
 bool winLose();
 
 int main() {
-	char playAgain;
+	char playAgain{};
 	do {
 		Player you;
-		you.lifePoints = 1000;// = 1000
+		you.lifePoints;// = 1000
 
 		Oponenet opp;
-		opp.lifePoints = 1000;// = 1000
+		opp.lifePoints;// = 1000
 
 		bool finalWin;
 		do {
 			finalWin = false;
-			for (int i = 250; i > 1000; i--) { //or (int i = 250; i>250; i--(or --i))
+			for (int i = 250; i < 1000; --i) { //or (int i = 250; i>250; i--(or --i))
 				winLose();
 				if (youWin == true) {
 					cout << "your opponents life points is now at: " << (opp.lifePoints -= i) << endl;
