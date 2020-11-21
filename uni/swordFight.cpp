@@ -60,7 +60,7 @@ enum upgCard { plusH, plusA, Ax2H_2, Hx2A_2, Sx2, xtraUse };
 class Character {
 public:
 	string charName[9]{ "ARMOURED KNIGHT","RONIN","SPARTAN","JEDI","VIKING","RAIDEN","LINK","CLOUD STRIFE","NOCTIS" };
-	int charPU = (rand() % 9), health{}, strength{};
+	int charPU = { (rand() % 9) }, health{}, strength{};
 	string name = charName[charPU];
 
 	
@@ -70,7 +70,7 @@ public:
 class Weapon {
 public:
 	string wepName[9]{ "ZWIEHANDER","KATANA","GLADIUS","LIGHT SABER","SIGURD","HF BLADE","BLADE OF EVIL's BANE","BUSTER SWORD","ENGINE BLADE" };
-	int attack{}, uses{}, wepPU = (rand() % 9);
+	int attack{}, uses{}, wepPU = { (rand() % 9) };
 	string name = wepName[wepPU];
 
 
@@ -336,16 +336,72 @@ int main() {
 				
 					cout << cpuchar.name << "'s health: "<<cpuchar.health<<endl;
 						
-					cout << "your " << p1wep.name << " has " << p1wep.uses << " remaining." << endl;
+					cout << "your " << p1wep.name << " has " << p1wep.uses << " uses remaining." << endl;
 
 					
+
+
+					//player weapon check
+					/*
+				if (p1wep.uses == 0) {
+				Weapon p1wep;
+				p1wep.wepPU = { (rand() % ENGINEBLADE + ZWEIHANDER) };
+				switch ((rand() % ENGINEBLADE + ZWEIHANDER)) {
+
+				case ZWEIHANDER:
+					p1wep.attack = (rand() % 48 + 25);
+					p1wep.uses = (rand() % 5 + 2);
+					break;
+				case KATANA:
+					p1wep.attack = (rand() % 45 + 35);
+					p1wep.uses = (rand() % 7 + 2);
+					break;
+				case GLADIUS:
+					p1wep.attack = (rand() % 44 + 29);
+					p1wep.uses = (rand() % 4 + 2);
+					break;
+				case LIGHTSABER:
+					p1wep.attack = (rand() % 50 + 35);
+					p1wep.uses = (rand() % 10 + 2);
+					break;
+				case SIGURD:
+					p1wep.attack = (rand() % 40 + 25);
+					p1wep.uses = (rand() % 5 + 2);
+					break;
+				case HFBLADE:
+					p1wep.attack = 150;
+					p1wep.uses = 1;
+					break;
+				case BLADEOFEVILSBANE:
+					p1wep.attack = (rand() % 37 + 25);
+					p1wep.uses = 4;
+					break;
+				case BUSTERSWORD:
+					p1wep.attack = (rand() % 50 + 40);
+					p1wep.uses = (rand() % 5 + 2);
+					break;
+				case ENGINEBLADE:
+					p1wep.attack = (rand() % 45 + 40);
+					p1wep.uses = (rand() % 5 + 2);
+					break;
+				}
+				cout << "your weapon uses have run out" << endl;
+				cout << "you are now holding a " << p1wep.name << endl;
+				cin.get();
+
+				}
+
+				*/
+
+
+
 					cin.get();
 
 
 
 					break;
 				case 'u':
-					cout << p1char.name << " uses " << p1upg.name << endl;
+					cout << p1char.name << " draws for an upgrade card " << endl;
 
 					//         (UPGRADE FUNCTION HERE)
 					switch (p1upg.upgPU) {
@@ -407,7 +463,7 @@ int main() {
 					
 				}
 
-				//opponent health check
+				//cpu health check
 				if (cpuchar.health <= NULL) {
 					cout << cpuchar.name << "'s health is 0" << endl;
 					charChange = true;
@@ -415,54 +471,8 @@ int main() {
 					oppWins = false;
 					cin.get();
 					break;
-				}/*else if (p1wep.uses == 0) {
-					
-					switch (p1wep.wepPU) {
-
-					case ZWEIHANDER:
-						p1wep.attack = (rand() % 48 + 25);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case KATANA:
-						p1wep.attack = (rand() % 45 + 35);
-						p1wep.uses = (rand() % 7 + 2);
-						break;
-					case GLADIUS:
-						p1wep.attack = (rand() % 44 + 29);
-						p1wep.uses = (rand() % 4 + 2);
-						break;
-					case LIGHTSABER:
-						p1wep.attack = (rand() % 50 + 35);
-						p1wep.uses = (rand() % 10 + 2);
-						break;
-					case SIGURD:
-						p1wep.attack = (rand() % 40 + 25);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case HFBLADE:
-						p1wep.attack = 150;
-						p1wep.uses = 1;
-						break;
-					case BLADEOFEVILSBANE:
-						p1wep.attack = (rand() % 37 + 25);
-						p1wep.uses = 4;
-						break;
-					case BUSTERSWORD:
-						p1wep.attack = (rand() % 50 + 40);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case ENGINEBLADE:
-						p1wep.attack = (rand() % 45 + 40);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					}
-					cout << "your weapon uses have run out" << endl;
-					cout << "you are now holding a " << p1wep.name << endl;
-					cin.get();
-					
-				}*/
-
-
+				}
+				
 				cin.get();
 
 
@@ -476,12 +486,66 @@ int main() {
 					p1char.health -= (cpuwep.attack + cpuchar.strength);
 					cpuwep.uses -= 1;
 
-					cout << "opponents " << cpuwep.name << " has " << cpuwep.uses << " remaining." << endl;
+					cout << "opponents " << cpuwep.name << " has " << cpuwep.uses << " uses remaining." << endl;
+
+
+					
+					//cpu weapon check
+					/*
+					if (cpuwep.uses == 0) {
+						Weapon cpuwep;
+						cpuwep.wepPU = { (rand() % 9) };
+						switch (cpuwep.wepPU) {
+
+						case ZWEIHANDER:
+							cpuwep.attack = (rand() % 48 + 25);
+							cpuwep.uses = (rand() % 5 + 2);
+							break;
+						case KATANA:
+							cpuwep.attack = (rand() % 45 + 35);
+							cpuwep.uses = (rand() % 7 + 2);
+							break;
+						case GLADIUS:
+							cpuwep.attack = (rand() % 44 + 29);
+							cpuwep.uses = (rand() % 4 + 2);
+							break;
+						case LIGHTSABER:
+							cpuwep.attack = (rand() % 50 + 35);
+							cpuwep.uses = (rand() % 10 + 2);
+							break;
+						case SIGURD:
+							cpuwep.attack = (rand() % 40 + 25);
+							cpuwep.uses = (rand() % 5 + 2);
+							break;
+						case HFBLADE:
+							cpuwep.attack = 150;
+							cpuwep.uses = 1;
+							break;
+						case BLADEOFEVILSBANE:
+							cpuwep.attack = (rand() % 37 + 25);
+							cpuwep.uses = 4;
+							break;
+						case BUSTERSWORD:
+							cpuwep.attack = (rand() % 50 + 40);
+							cpuwep.uses = (rand() % 5 + 2);
+							break;
+						case ENGINEBLADE:
+							cpuwep.attack = (rand() % 45 + 40);
+							cpuwep.uses = (rand() % 5 + 2);
+							break;
+						}
+						cout << "opponent weapon uses have run out" << endl;
+						cout << "opponent is now holding a " << cpuwep.name << endl;
+						cin.get();
+
+					}
+					*/
+					
 					
 					cin.get();
 					break;
 				case 2:
-					cout << cpuchar.name << " uses " << cpuupg.name << endl;
+					cout << cpuchar.name << " draws for an upgrade card" << endl;
 					//         (UPGRADE FUNCTION HERE)
 
 					switch (cpuupg.upgPU) {
@@ -551,53 +615,9 @@ int main() {
 					oppWins = true;
 					cin.get();
 					break;
-				}/*else if (cpuwep.uses == 0) {
-					
-					switch (cpuwep.wepPU) {
-
-					case ZWEIHANDER:
-						p1wep.attack = (rand() % 48 + 25);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case KATANA:
-						p1wep.attack = (rand() % 45 + 35);
-						p1wep.uses = (rand() % 7 + 2);
-						break;
-					case GLADIUS:
-						p1wep.attack = (rand() % 44 + 29);
-						p1wep.uses = (rand() % 4 + 2);
-						break;
-					case LIGHTSABER:
-						p1wep.attack = (rand() % 50 + 35);
-						p1wep.uses = (rand() % 10 + 2);
-						break;
-					case SIGURD:
-						p1wep.attack = (rand() % 40 + 25);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case HFBLADE:
-						p1wep.attack = 150;
-						p1wep.uses = 1;
-						break;
-					case BLADEOFEVILSBANE:
-						p1wep.attack = (rand() % 37 + 25);
-						p1wep.uses = 4;
-						break;
-					case BUSTERSWORD:
-						p1wep.attack = (rand() % 50 + 40);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					case ENGINEBLADE:
-						p1wep.attack = (rand() % 45 + 40);
-						p1wep.uses = (rand() % 5 + 2);
-						break;
-					}
-					cout << "opponent weapon uses have run out" << endl;
-					cout << "opponent is now holding a " << cpuwep.name << endl;
-					cin.get();
-
-				}*/
-
+				}
+				
+				
 
 
 
